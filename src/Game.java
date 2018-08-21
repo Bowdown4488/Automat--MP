@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Game {
 	private States currState;
-
+	
 	public Game(States currState) {
 		this.currState = currState;
 	}
