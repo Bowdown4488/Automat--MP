@@ -4,9 +4,10 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		//States
-		States Q0 = new States("Q0",false,"Earth:(S) HHLCG | Mars: - ");
-		States Q1 = new States("Q1",false,"Earth: HHG | Mars: (S) LC ");
+		Machine machine = new Machine();
+		
+		States Q0 = new States("Q0",false,"Earth:(S) HHLCG | Mars: - "); 
+		States Q1 = new States("Q1",false,"Earth: HHG | Mars: (S) LC "); 
 		States Q2 = new States("Q2",false,"Earth: (S) HHLG | Mars: C ");
 		States Q3 = new States("Q3",false,"Earth: HH | Mars: (S) LCG ");
 		States Q4 = new States("Q4",false,"Earth: (S) HHC | Mars: LG ");
@@ -168,6 +169,39 @@ public class Main {
 	
 		Q15.addTransition(TQ15);
 		Q4.addTransition(TQ15Back);
+		
+		//Adding states in the machine class
+		machine.addMachine(Q0);
+		machine.addMachine(Q1);
+		machine.addMachine(Q2);
+		machine.addMachine(Q3);
+		machine.addMachine(Q4);
+		machine.addMachine(Q5);
+		machine.addMachine(Q6);
+		machine.addMachine(Q7);
+		machine.addMachine(Q8);
+		machine.addMachine(Q9);
+		machine.addMachine(Q10);
+		machine.addMachine(Q11);
+		machine.addMachine(Q12);
+		machine.addMachine(Q13);
+		machine.addMachine(Q14);
+		machine.addMachine(Q15);
+		machine.addMachine(Q16);
+		machine.addMachine(Q17);
+		
+//		for(int i = 0 ; i < machine.getStates().size(); i++) {
+//			System.out.println("State name: " + machine.getStates().get(i).getName());
+//			System.out.println("State boolean: " + machine.getStates().get(i).getisFinal());
+//			System.out.println("State position: " + machine.getStates().get(i).getPosition());
+//			System.out.println("Number of Transitions: " + machine.getStates().get(i).getTransition().size());
+//			for(int j = 0; j < machine.getStates().get(i).getTransition().size();j++) {
+//				System.out.println("Transition #: " + j);
+//				System.out.println("Transition Input: " + machine.getStates().get(i).getTransition().get(j).getInput());
+//				System.out.println("Transition Name: " + machine.getStates().get(i).getTransition().get(j).getState().getName());
+//			}
+//			System.out.println("------------------------------------------------------------------------------------------------------");
+//		}
 		
 		//Game itself
 		int moves = 0;

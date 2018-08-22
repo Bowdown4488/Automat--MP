@@ -12,15 +12,9 @@ public class Transition {
 	public String getInput() {
 		return input;
 	}
-	public void setInput(String input) {
-		this.input = input;
-	}
 	public States getState() {
 		return state;
 	}
-	public void setState(States state) {
-		this.state = state;
-	}
-	
-	
+
+		
 }
