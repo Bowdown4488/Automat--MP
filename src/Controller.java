@@ -23,7 +23,7 @@ public class Controller {
 			gameItself(game);
 		}
 		else {
-			solution = new ShortestSolution();
+			solution = new ShortestSolution(machine);
 		}
 	}
 	
