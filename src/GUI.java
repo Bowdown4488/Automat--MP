@@ -6,13 +6,22 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.JRadioButton;
@@ -20,30 +29,18 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 public class GUI extends JFrame {
-
+	private Game game;
+	private ShortestSolution solution;
 	private JPanel contentPane;
-	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI frame = new GUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JTextField inputField;
+	private boolean cont = true;
+	private ArrayList<String> visited = new ArrayList();
+	private BufferedImage myPicture8;
 
 	/**
 	 * Create the frame.
 	 */
-	public GUI() {
+	public GUI(Machine machine, Game game) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1078, 795);
 		contentPane = new JPanel();
@@ -56,19 +53,10 @@ public class GUI extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnGo = new JButton("Bring");
-		btnGo.setBounds(132, 305, 57, 23);
-		btnGo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		panel.add(btnGo);
-		
-		textField = new JTextField();
-		textField.setBounds(114, 274, 86, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		inputField = new JTextField();
+		inputField.setBounds(114, 274, 86, 20);
+		panel.add(inputField);
+		inputField.setColumns(10);
 		
 		JLabel lblInput = new JLabel("Input Legend:");
 		lblInput.setBounds(10, 11, 86, 14);
@@ -153,7 +141,60 @@ public class GUI extends JFrame {
 		contentPane.add(panel_2);
 		
 		JLabel label_1 = new JLabel("");
-		label_1.setBounds(356, 380, 700, 363);
-		contentPane.add(label_1);
+		panel_2.add(label_1);
+		
+		try {
+			myPicture8 = ImageIO.read(new File("C:\\Users\\Antoine Salcedo\\Desktop\\SCRAP\\AUTOMAT\\Automat--MP\\src\\Q0.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JButton btnGo = new JButton("Bring");
+		btnGo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(game.getCurrState().getName());
+			if(game.getCurrState().getName().equals("Q0")) {
+				try {
+					myPicture8 = ImageIO.read(new File("C:\\Users\\Antoine Salcedo\\Desktop\\SCRAP\\AUTOMAT\\Automat--MP\\src\\Q0.png"));
+					JLabel state = new JLabel(new ImageIcon(myPicture8));
+					panel_2.add(state);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			else if(game.getCurrState().getName().equals("Q1")) {
+				try {
+					myPicture8 = ImageIO.read(new File("C:\\Users\\Antoine Salcedo\\Desktop\\SCRAP\\AUTOMAT\\Automat--MP\\src\\Q1.png"));
+					JLabel state = new JLabel(new ImageIcon(myPicture8));
+					panel_2.add(state);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			String playermove = inputField.getText();
+			States advance = game.checkTransition(playermove);
+			if(advance != null) {
+				visited.add(advance.getName());
+				if(advance.getisFinal()==true) {
+					Game game = new Game(advance);
+					cont = false;
+				}else {
+					Game game = new Game(advance);
+					
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Game Over!");
+			}
+		}
+		});
+		btnGo.setBounds(132, 305, 57, 23);
+		panel.add(btnGo);
+		JLabel state = new JLabel(new ImageIcon(myPicture8));
+		state.setBounds(-446, 458, 1508, 650);
+		contentPane.add(state);
+				
 	}
 }

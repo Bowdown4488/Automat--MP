@@ -46,7 +46,6 @@ public class Controller {
 			System.out.println("Move # " + moves);
 			System.out.println("Current State: " + game.getCurrState().getName() );
 			System.out.println("Current Position: " + game.getCurrState().getPosition() );
-			System.out.println("Input Move: ");
 			playerMove = sc.nextLine();
 			System.out.println("Input Move: " + playerMove);
 			States advance = game.checkTransition(playerMove);
